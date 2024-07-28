@@ -80,23 +80,25 @@ public class Main extends TelegramLongPollingBot {
         ByteBuffer byteBuffer = ByteBuffer.wrap(buffer);
 
         // Parsing the response
-        byteBuffer.position(6); // Skip the header (4 bytes) and the Type (1 byte) and the Network Version (1 byte)
+        byteBuffer.position(4); // Skip the header (4 bytes)
+        byte responseType = byteBuffer.get(); // Read response type
+        if (responseType != 'I') {
+            throw new IOException("Unexpected response type: " + responseType);
+        }
 
+        byteBuffer.get(); // Skip the Network Version (1 byte)
         String serverName = readString(byteBuffer);
         String mapName = readString(byteBuffer);
-
         byteBuffer.get(); // Skip the game version (1 byte)
-        byte players = byteBuffer.get();
-        byte maxPlayers = byteBuffer.get();
 
-        StringBuilder info = new StringBuilder();
-        info.append("ℹ Server nomi: ").append(serverName).append("\n");
-        info.append("\uD83D\uDDFA Xarita: ").append(mapName).append("\n");
-        info.append("\uD83D\uDD2B O'yinchilar: ").append(players).append("/").append(maxPlayers).append("\n");
-        info.append("\uD83D\uDCDD Info: ").append("@cstashkentinfobot\n");
-        info.append("\uD83D\uDC68\u200D\uD83E\uDDB1 Admin: ").append("@xumoyiddin_xolmuminov");
+        int players = byteBuffer.get() & 0xFF;  // Read players
+        String info = "ℹ Server nomi: " + serverName + "\n" +
+                "\uD83D\uDDFA Xarita: " + mapName + "\n" +
+                "\uD83D\uDD2B O'yinchilar: " + players + "/" + "32" + "\n" +
+                "\uD83D\uDCDD Info: " + "@cstashkentinfobot\n" +
+                "\uD83D\uDC68\u200D\uD83E\uDDB1 Admin: " + "@xumoyiddin_xolmuminov";
 
-        sendMessage(chatId, info.toString());
+        sendMessage(chatId, info);
     }
 
     private String readString(ByteBuffer buffer) {
