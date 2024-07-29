@@ -35,9 +35,11 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"/>
-                                <mainClass>org.example.Main</mainClass>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestTransformer">
+                                    <manifestEntries>
+                                        <Main-Class>org.example.Main</Main-Class>
+                                    </manifestEntries>
+                                </transformer>
                             </transformers>
                         </configuration>
                     </execution>
