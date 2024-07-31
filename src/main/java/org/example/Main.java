@@ -25,6 +25,7 @@ public class Main extends TelegramLongPollingBot {
         // Bu yerda bot tokenini kiriting
         return "7126116690:AAESFwKKt7LIXzuu8DWd3GPk4w5ehTDIvxs";
     }
+
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
@@ -43,7 +44,6 @@ public class Main extends TelegramLongPollingBot {
                         sendMessage(chatId, "Serverdan ma'lumot olishda xatolik yuz berdi.");
                     }
                 }
-                default -> sendMessage(chatId, "Noma'lum buyruq. Ma'lumot olish uchun /help ni kiriting.");
             }
         }
     }
@@ -93,12 +93,13 @@ public class Main extends TelegramLongPollingBot {
         String gameDescription = readString(byteBuffer);
 
         byteBuffer.get(); // Skip the game version (1 byte)
-        int players = Byte.toUnsignedInt(byteBuffer.get());  // Read players
+        int players = byteBuffer.get() & 0xFF;  // Read players
+        int maxPlayers = byteBuffer.get() & 0xFF;  // Read max players
 
         StringBuilder info = new StringBuilder();
         info.append("ℹ Server nomi: ").append(serverName).append("\n");
         info.append("\uD83D\uDDFA Xarita: ").append(mapName).append("\n");
-        info.append("\uD83D\uDD2B O'yinchilar: ").append(players).append("/").append(32).append("\n");
+        info.append("\uD83D\uDD2B O'yinchilar: ").append(maxPlayers).append("/").append("32").append("\n");
         info.append("\uD83D\uDCDD Info: ").append("@cstashkentinfobot\n");
         info.append("\uD83D\uDC68\u200D\uD83E\uDDB1 Admin: ").append("@xumoyiddin_xolmuminov");
 
