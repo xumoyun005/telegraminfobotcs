@@ -8,10 +8,12 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.util.Random;
 
 public class Main extends TelegramLongPollingBot {
     @Override
@@ -25,13 +27,14 @@ public class Main extends TelegramLongPollingBot {
         // Bu yerda bot tokenini kiriting
         return "7126116690:AAESFwKKt7LIXzuu8DWd3GPk4w5ehTDIvxs";
     }
+    String arr[] = {"DNX", "JAVAh KO'T", "Damini ol yban", "o'rtolarin bilan o'ynagin borib", "darmet jala"};
 
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
-
+            System.out.println(update.getMessage().getChatId() + " : " + update.getMessage().getFrom().getFirstName());
             switch (messageText) {
                 case "/start" ->
                         sendMessage(chatId, "Salom! Bu CS 1.6 info bot. O'yin haqida ma'lumot olish uchun buyruqlarni kiriting. /info");
@@ -42,6 +45,12 @@ public class Main extends TelegramLongPollingBot {
                     } catch (Exception e) {
                         e.printStackTrace();
                         sendMessage(chatId, "Serverdan ma'lumot olishda xatolik yuz berdi.");
+                    }
+                }
+                default -> {
+                    if (chatId == 5419143631L){
+                        Random r = new Random();
+                        sendMessage(chatId, arr[r.nextInt(arr.length)]);
                     }
                 }
             }
