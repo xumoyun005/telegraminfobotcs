@@ -27,7 +27,7 @@ public class Main extends TelegramLongPollingBot {
         // Bu yerda bot tokenini kiriting
         return "7126116690:AAESFwKKt7LIXzuu8DWd3GPk4w5ehTDIvxs";
     }
-    String arr[] = {"DNX", "JAVAh KO'T", "Damini ol yban", "o'rtolarin bilan o'ynagin borib", "darmet jala"};
+    String[] arr = {"DNX", "JAVAh KO'T", "Damini ol yban", "o'rtolarin bilan o'ynagin borib", "darmet jala"};
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -48,7 +48,7 @@ public class Main extends TelegramLongPollingBot {
                     }
                 }
                 default -> {
-                    if (chatId == 5419143631L){
+                    if (chatId == 5246215841L){
                         Random r = new Random();
                         sendMessage(chatId, arr[r.nextInt(arr.length)]);
                     }
