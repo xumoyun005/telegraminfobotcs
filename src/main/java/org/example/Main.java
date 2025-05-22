@@ -19,13 +19,13 @@ public class Main extends TelegramLongPollingBot {
     @Override
     public String getBotUsername() {
         // Bu yerda bot foydalanuvchi nomini kiriting
-        return "cstashkentinfobot";
+        return "tashkentinfocsbot";
     }
 
     @Override
     public String getBotToken() {
         // Bu yerda bot tokenini kiriting
-        return "7126116690:AAESFwKKt7LIXzuu8DWd3GPk4w5ehTDIvxs";
+        return "7965927079:AAEJndw-OXIKAP157jbXQwanmIEN468E4ug";
     }
     String[] arr = {"DNX", "JAVAh KO'T", "Damini ol yban", "o'rtolarin bilan o'ynagin borib", "darmet jala"};
 
